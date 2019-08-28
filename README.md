@@ -1,2 +1,2 @@
-# typeScript
+# TypeScript
 Curso da alura
