@@ -1,3 +1,0 @@
-# TypeScript
-Curso da alura
-
