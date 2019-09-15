@@ -8,7 +8,6 @@
     "compile": "tsc",
     "start": "tsc -w"
   },
-
   "author": "",
   "license": "ISC",
   "devDependencies": {

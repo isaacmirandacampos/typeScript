@@ -1,28 +1,46 @@
-class NegociacoesView{
+class NegociacoesView {
+
     private _elemento: Element;
-    
-    constructor(seletor: string){
+
+    constructor(seletor: string) {
+
         this._elemento = document.querySelector(seletor);
     }
 
-    template(): string {
+    update(model: Negociacoes): void {
+
+        this._elemento.innerHTML = this.template(model);
+    }
+
+    template(model: Negociacoes): string {
+
         return `
-        <table class="table table-hover table-bordered>
+        <table class="table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>Data</th>
-                    <th>Quantidade</th>
-                    <th>Valor</th>
-                    <th>Volume</th>
+                    <th>DATA</th>
+                    <th>QUANTIDADE</th>
+                    <th>VALOR</th>
+                    <th>VOLUME</th>
                 </tr>
             </thead>
+
             <tbody>
+                ${model.paraArray().map(negociacao => 
+                     `
+                        <tr>
+                            <td>${negociacao.data.getDate()}/${negociacao.data.getMonth() +1}/${negociacao.data.getFullYear()}</td>
+                            <td>${negociacao.quantidade}</td>
+                            <td>${negociacao.valor}</td>
+                            <td>${negociacao.volume}</td>
+                        <tr>
+                     `   
+                ).join('')}            
             </tbody>
+
             <tfoot>
             </tfoot>
-        </table>`
-    }
-    update(): void{
-        this._elemento.innerHTML = this.template();
+        </table> 
+        `;
     }
 }
