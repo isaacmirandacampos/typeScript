@@ -10,7 +10,6 @@ export abstract class View<T> {
         this._elemento = $(seletor);
         this._escapar = escapar;
     }
-    @logarTempoDeExecucao(true)
     update(model: T) {
         
         let template = this.template(model);
