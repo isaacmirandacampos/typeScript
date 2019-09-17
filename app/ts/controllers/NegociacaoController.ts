@@ -1,6 +1,6 @@
 import { NegociacoesView, MensagemView } from '../views/index';
 import { Negociacao, Negociacoes, NegociacaoParcial } from '../models/index';
-import { domInject } from "../helpers/decorators/index";
+import { domInject, trhottle } from "../helpers/decorators/index";
 
 export class NegociacaoController {
     @domInject('#data')
@@ -17,9 +17,8 @@ export class NegociacaoController {
 
         this._negociacoesView.update(this._negociacoes);
     }
-    adiciona(event: Event) {
-
-        event.preventDefault();
+    @trhottle() //adicionando timeout
+    adiciona() { 
 
         let data = new Date(this._inputData.val().replace(/-/g, ','));
 
@@ -45,6 +44,7 @@ export class NegociacaoController {
 
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
     }
+    @trhottle()//adicionando timeout
     importaDados() {
         function isOk(res: Response) {
             if (res.ok) {
@@ -53,16 +53,17 @@ export class NegociacaoController {
                 throw new Error(res.statusText)
             }
         }
-        fetch('http://localhost:8080/dados')
-            .then(res => isOk(res))
-            .then(res => res.json())
-            .then((dados: NegociacaoParcial[]) => {
-                dados
-                    .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
-                    .forEach(Negociacao => this._negociacoes.adiciona(Negociacao));
-                this._negociacoesView.update(this._negociacoes);
-                })
-            .catch(err => console.log(err.message))
+
+                fetch('http://localhost:8080/dados')
+                    .then(res => isOk(res))
+                    .then(res => res.json())
+                    .then((dados: NegociacaoParcial[]) => {
+                        dados
+                            .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
+                            .forEach(Negociacao => this._negociacoes.adiciona(Negociacao));
+                        this._negociacoesView.update(this._negociacoes);
+                        })
+                    .catch(err => console.log(err.message));
     }
 }
 
