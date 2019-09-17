@@ -50,10 +50,10 @@ sudo npm install concurrently@3.4.0 --save-deV
         "noEmitOnError": true, 
         "noImplicitAny": true,
         "removeComments": true,
-        "module": "system"        
+        "module": "system",
+        "strictNullChecks": true        
     },
     "include": [
         "app/ts/**/*"
     ]
 }
-
