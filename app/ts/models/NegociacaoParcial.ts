@@ -1,5 +1,5 @@
-export interface NegociacaoParcial{
-    
+export interface NegociacaoParcial {
+
     vezes: number;
     montante: number;
 }

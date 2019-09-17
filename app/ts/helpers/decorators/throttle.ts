@@ -1,16 +1,15 @@
-export function trhottle(milissegundos = 500){ //impede que o usuário click diversas vezes para disparar o evento
-    
-    return function(target: any, propertyKey: string, descriptor: PropertyDescriptor){
+export function throttle(milissegundos = 500) {
 
-        const metodoOrigital = descriptor.value;
+    return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+
+        const metodoOriginal = descriptor.value;
         let timer = 0;
-        descriptor.value = function(...args: any[]){
+        descriptor.value = function(...args: any[]) {
             if(event) event.preventDefault();
             clearInterval(timer);
-            timer = setTimeout(() => metodoOrigital.apply(this, args), milissegundos)
-            
-            
+            timer = setTimeout(() => metodoOriginal.apply(this, args), milissegundos);
         }
+
         return descriptor;
     }
 }

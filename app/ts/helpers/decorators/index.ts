@@ -1,3 +1,3 @@
-export * from "../decorators/logarTempoDeExecucao";
-export * from '../decorators/domInject';
-export * from '../decorators/throttle';
+export * from './logarTempoDeExecucao';
+export * from './domInject';
+export * from './throttle';
